@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-server": "nodemon src/server.js --ignore *.data.json",
-	 "start-old": "nodemon src/server_old.js --ignore *.data.json"
+	 "start-old": "nodemon test/server_old.js --ignore *.data.json"
   },
   "author": "andremacola",
   "license": "ISC",

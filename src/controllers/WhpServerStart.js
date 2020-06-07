@@ -1,29 +1,27 @@
 const wa = require('@open-wa/wa-automate');
+const helpers = require('./../helpers');
 const WebHook = require('./WebHook');
 
-const WhpServerStart = async function(app) {
-	app.locals.whp.isStarting = true;
+const { setWhp } = helpers;
+
+const WhpServerStart = async function() {
+	setWhp('isStarting', true);
 	wa.create({
 		sessionId: process.env.SESSION_TOKEN,
 	})
-		.then(async (client) => await WhpConfigureClient(app, client))
+		.then(async (client) => await WhpConfigureClient(client))
 		.catch((error) => {
 			console.log('Error', error.message);
 		});
-
-	console.log(`\n⚡ Listening on http://localhost:${app.locals.whp.port}!`);
 };
 
-const WhpConfigureClient = async function(app, client) {
-	app.use(client.middleware);
+const WhpConfigureClient = async function(client) {
+	setWhp('isStarting', false);
+	setWhp('client', client);
 
-	app.locals.whp.client = client;
-	app.locals.whp.isStarting = false;
-	console.log(client);
-
-	// client.onPlugged(WebHook.post(await client.getMe()));
-	// client.onAck(WebHook.event('ack'));
-	// client.onMessage(WebHook.event('message'));
+	client.onPlugged(WebHook.post(await client.getMe()));
+	client.onAck(WebHook.event('ack'));
+	client.onMessage(WebHook.event('message'));
 
 	// client.onAnyMessage(webHook('any_message'));
 	// client.onAddedToGroup(webHook('added_to_group'));
@@ -32,6 +30,8 @@ const WhpConfigureClient = async function(app, client) {
 	// client.onIncomingCall(webHook('incoming_call'));
 	// client.onPlugged(webHook('plugged'));
 	// client.onStateChanged(webHook('state'));
+
+	console.log(`\n⚡ Listening on http://localhost:${process.env.PORT}!`);
 };
 
 module.exports = WhpServerStart;
