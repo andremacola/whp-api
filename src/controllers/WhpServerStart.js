@@ -16,7 +16,6 @@ const WhpServerStart = async function() {
 };
 
 const WhpConfigureClient = async function(client) {
-	setWhp('isStarting', false);
 	setWhp('client', client);
 
 	client.onPlugged(WebHook.post(await client.getMe()));
@@ -31,6 +30,7 @@ const WhpConfigureClient = async function(client) {
 	// client.onPlugged(webHook('plugged'));
 	// client.onStateChanged(webHook('state'));
 
+	setWhp('isStarting', false);
 	console.log(`\n⚡ Listening on http://localhost:${process.env.PORT}!`);
 };
 

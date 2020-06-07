@@ -42,10 +42,10 @@ router.get(
 	'/start/:token',
 	validateActiveToken,
 	async (req, res) => {
-		const { isStarting, client } = getWhp();
+		let { isStarting, client } = getWhp();
 		if (!client && !isStarting) {
 			await WhpServerStart();
-			setWhp('isStarting', true);
+			isStarting = setWhp('isStarting', true);
 		}
 		const status = (isStarting) ? 'Starting Session...' : 'Online';
 		return res.status(200).json({
