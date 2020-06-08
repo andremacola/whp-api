@@ -1,6 +1,6 @@
 **THIS IS A WORKING PROJECT.**
 
-Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automate-nodejs)
+Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automate-nodejs) and inspired by [whats2api](https://github.com/joaomirandasa/whats2api)
 
 **This is a basic example how to create a REST API for Whatsapp. Not for production use (yet).**
 
