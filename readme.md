@@ -30,6 +30,23 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
   "msg": "some message"
 }
 
+// Audios (audio/ogg, audio/mpeg)
+
+{
+  "cmd": "media",
+  "to": "number@c.us",
+  "url": "https://domain.tld/audio.mp3"
+}
+
+// Images (image/jpeg, image/png, image/gif)
+
+{
+  "cmd": "media",
+  "to": "number@c.us",
+  "url": "https://domain.tld/image.jpg",
+  "msg": "some caption (optional)"
+}
+
 // Link or Youtube videos
 
 {
@@ -39,6 +56,7 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
   "msg": "some message (optional)"
 }
 ```
+
 
 ### WEBHOOKS ###
 
