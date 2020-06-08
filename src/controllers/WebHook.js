@@ -2,7 +2,7 @@ const axios = require('axios').default;
 const { default: PQueue } = require('p-queue');
 const queue = new PQueue({ concurrency: 5 });
 
-class WebHook {
+class webHook {
 	static async post(data) {
 		return await axios.post(process.env.WEBHOOK, data);
 	}
@@ -19,4 +19,4 @@ class WebHook {
 	}
 }
 
-module.exports = WebHook;
+module.exports = webHook;

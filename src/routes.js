@@ -1,10 +1,11 @@
 const express = require('express');
 const { whpClient, sessionStop, getWhp, setWhp } = require('./helpers');
-const WhpServerStart = require('./controllers/WhpServerStart');
+const whpServerStart = require('./controllers/whpServerStart');
 const router = express.Router();
 
 const validateActiveToken = require('./middlewares/validateActiveToken');
 const verifyActiveSession = require('./middlewares/verifyActiveSession');
+const sendHandler = require('./middlewares/sendHandler');
 
 /* session status/info */
 router.get(
@@ -14,9 +15,9 @@ router.get(
 	},
 );
 
-// /* session status/info */
+/* session status/info */
 router.get(
-	'/status/:token',
+	'/:token/status',
 	validateActiveToken,
 	verifyActiveSession,
 	async (req, res) => {
@@ -24,9 +25,9 @@ router.get(
 	},
 );
 
-// /* session stop */
+/* session stop */
 router.get(
-	'/stop/:token',
+	'/:token/stop',
 	validateActiveToken,
 	verifyActiveSession,
 	async (req, res) => {
@@ -39,12 +40,12 @@ router.get(
 
 /* session start */
 router.get(
-	'/start/:token',
+	'/:token/start',
 	validateActiveToken,
 	async (req, res) => {
 		let { isStarting, client } = getWhp();
 		if (!client && !isStarting) {
-			await WhpServerStart();
+			await whpServerStart();
 			isStarting = setWhp('isStarting', true);
 		}
 		const status = (isStarting) ? 'Starting Session...' : 'Online';
@@ -54,23 +55,12 @@ router.get(
 	},
 );
 
-// /* send messages */
+/* send messages */
 router.post(
-	'/send/:token/',
+	'/:token/send/',
 	validateActiveToken,
 	verifyActiveSession,
-	async (req, res) => {
-		const { cmd, to, msg } = req.body;
-		const client = whpClient();
-		const send = await client.sendText(to, msg);
-		return res.status(200).json({
-			send,
-			cmd,
-			// id,
-			to,
-			// msg,
-		});
-	},
+	sendHandler,
 );
 
 module.exports = router;
