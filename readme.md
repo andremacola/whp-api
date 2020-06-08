@@ -13,7 +13,7 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 ### ENDPOINTS ###
 
 |Command|Endpoint|
-|---|---|---|---|---|
+|---|---|
 |Send **(POST):** | http://localhost:3000/*SESSION_TOKEN*/send|
 |Info **(GET):** | http://localhost:3000/*SESSION_TOKEN*/status|
 |Stop **(GET):** | http://localhost:3000/*SESSION_TOKEN*/stop|
