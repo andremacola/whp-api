@@ -4,13 +4,13 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 
 **This is a basic example how to create a REST API for Whatsapp. Not for production use (yet).**
 
-## HOW TO USE ##
+### HOW TO USE ###
 
 1. Set ambient variables inside .env file (see .env.example for more information). *MYGROUP* and *MYNUMBER* is only for development purpose.
 2. `yarn install` or `npm install`
 3. `yarn start-server`
 
-## ENDPOINTS ##
+### ENDPOINTS ###
 
 |Command|Endpoint|
 |---|---|---|---|---|
@@ -20,7 +20,7 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 |Start **(GET):** | http://localhost:3000/*SESSION_TOKEN*/start|
 
 
-## SEND EXAMPLES ##
+### SEND EXAMPLES ###
 ```json
 // Text message (for groups use @g.us)
 
@@ -40,6 +40,6 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 }
 ```
 
-## WEBHOOKS ##
+### WEBHOOKS ###
 
 No info yet
