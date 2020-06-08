@@ -14,10 +14,10 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 
 |Command|Endpoint|
 |---|---|
-|Send **(POST):** | http://localhost:3000/*SESSION_TOKEN*/send|
-|Info **(GET):** | http://localhost:3000/*SESSION_TOKEN*/status|
-|Stop **(GET):** | http://localhost:3000/*SESSION_TOKEN*/stop|
-|Start **(GET):** | http://localhost:3000/*SESSION_TOKEN*/start|
+|Send **(POST):** | http://localhost:3000/SESSION_TOKEN/send|
+|Info **(GET):** | http://localhost:3000/SESSION_TOKEN/status|
+|Stop **(GET):** | http://localhost:3000/SESSION_TOKEN/stop|
+|Start **(GET):** | http://localhost:3000/SESSION_TOKEN/start|
 
 
 ### SEND EXAMPLES ###
