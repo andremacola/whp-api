@@ -109,10 +109,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@open-wa/wa-automate@^1.9.64":
-  version "1.9.64"
-  resolved "https://registry.yarnpkg.com/@open-wa/wa-automate/-/wa-automate-1.9.64.tgz#3101e3f930f82f258670a6ec44a12de229d0b642"
-  integrity sha512-HdOrf5Vj31CYL9kUIBKezrYb3p9T40XVVrDrMBbDZz6SLLzZYnXXVdrsRtLPnqH/BzWc8e24ry2Tpm8t8W8p5g==
+"@open-wa/wa-automate@^1.9.65":
+  version "1.9.65"
+  resolved "https://registry.yarnpkg.com/@open-wa/wa-automate/-/wa-automate-1.9.65.tgz#09716485c5b281ad70f4e4ef27a285206eef551c"
+  integrity sha512-C4jjhb42ZD9zB3oN9zJkxvRhtW3BilRcR0Si6t/SKpkYnBLqTJ3unzSLtbAnDOhpwKErF4jir4VVCqHi3kOnsg==
   dependencies:
     "@open-wa/wa-decrypt" "^1.1.5"
     "@types/sharp" "^0.25.0"

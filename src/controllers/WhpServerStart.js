@@ -1,6 +1,6 @@
 const wa = require('@open-wa/wa-automate');
-const helpers = require('./../helpers');
-const webHook = require('./webHook');
+const helpers = require('../helpers');
+const whpHook = require('./whpHook');
 
 const { setWhp } = helpers;
 
@@ -19,9 +19,13 @@ const whpServerStart = async function() {
 const whpConfigureClient = async function(client) {
 	setWhp('client', client);
 
-	client.onPlugged(webHook.post(await client.getMe()));
-	client.onAck(webHook.event('ack'));
-	client.onMessage(webHook.event('message'));
+	client.onPlugged(whpHook.post(await client.getMe()));
+	client.onAck((data) => {
+		whpHook.send('ack', data);
+	});
+	client.onMessage((data) => {
+		whpHook.send('message', data);
+	});
 
 	// client.onAnyMessage(webHook('any_message'));
 	// client.onAddedToGroup(webHook('added_to_group'));

@@ -52,6 +52,23 @@ const getFile = async function(url) {
 		});
 };
 
+const getMsgServer = function(isGroupMsg) {
+	return (isGroupMsg) ? '@g.us' : '@c.us';
+};
+
+const getMsgServerFromNumber = function(number) {
+	return number.slice(-4);
+};
+
+const getMessageID = function(id) {
+	// return id = id.split('us_')[1].split('_')[0];
+	return id.slice(id.indexOf('us_') + 3).split('_')[0];
+};
+
+const formatPhoneNumber = function(number) {
+	return number.slice(0, -5);
+};
+
 module.exports = {
 	setWhp,
 	getWhp,
@@ -60,5 +77,9 @@ module.exports = {
 	sendGetStatus,
 	getFileName,
 	getFile,
+	getMsgServer,
+	getMessageID,
+	getMsgServerFromNumber,
+	formatPhoneNumber,
 };
 
