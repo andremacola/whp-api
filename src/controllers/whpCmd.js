@@ -12,9 +12,11 @@ class whpCmd {
 				this.outLine(client, number, body, msgId);
 				break;
 			case (body == '@pay'):
-				const canonicalUrl = data.quotedMsgObj.canonicalUrl;
-				if (canonicalUrl) {
-					this.outLine(client, number, canonicalUrl, msgId);
+				const wall = data.quotedMsgObj.canonicalUrl;
+				if (wall) {
+					client.reply(number, `https://outline.com/${wall}`, msgId, true);
+				} else {
+					client.reply(number, 'Link inválido', msgId, true);
 				}
 				break;
 			case (body == '@ping'):
@@ -31,8 +33,6 @@ class whpCmd {
 		// const outline = `https://api.outline.com/v3/parse_article?source_url=${sourceUrl}`;
 		if (sourceUrl) {
 			client.reply(number, outline, replyMsg, true);
-		} else {
-			client.reply(number, 'Link inválido', replyMsg, true);
 		}
 	}
 }
