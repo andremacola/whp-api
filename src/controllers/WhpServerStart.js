@@ -1,6 +1,7 @@
 const wa = require('@open-wa/wa-automate');
 const helpers = require('../helpers');
 const whpHook = require('./whpHook');
+const whpCmd = require('./whpCmd');
 
 const { setWhp } = helpers;
 
@@ -21,6 +22,7 @@ const whpConfigureClient = async function(client) {
 
 	client.onAck((data) => whpHook.send('ack', data));
 	client.onAnyMessage((data) => whpHook.send('message', data));
+	client.onMessage((data) => whpCmd.handler(client, data));
 
 	// client.onPlugged(whpHook.post(await client.getMe()));
 	// client.onMessage((data) => whpHook.send('message', data));
