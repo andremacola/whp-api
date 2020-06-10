@@ -8,10 +8,13 @@ const verifyActiveSession = require('./middlewares/verifyActiveSession');
 const sendHandler = require('./middlewares/sendHandler');
 const statusHandler = require('./middlewares/statusHandler');
 
+const nodemon = require('nodemon');
+
 /* session debug */
 router.get(
 	'/debug/',
 	async (req, res) => {
+		nodemon.emit('restart');
 		return res.json(await whpClient().getMe());
 	},
 );

@@ -1,5 +1,3 @@
-const axios = require('axios').default;
-
 class whpCmd {
 	bad() {
 		return false;
@@ -13,6 +11,12 @@ class whpCmd {
 			case (body.startsWith('@pay ')):
 				this.outLine(client, number, body, msgId);
 				break;
+			case (body == '@pay'):
+				const canonicalUrl = data.quotedMsgObj.canonicalUrl;
+				if (canonicalUrl) {
+					this.outLine(client, number, canonicalUrl, msgId);
+				}
+				break;
 			default:
 				break;
 		}
@@ -22,7 +26,11 @@ class whpCmd {
 		const sourceUrl = body.replace('@pay ', '');
 		const outline = `https://outline.com/${sourceUrl}`;
 		// const outline = `https://api.outline.com/v3/parse_article?source_url=${sourceUrl}`;
-		client.reply(number, outline, replyMsg, true);
+		if (sourceUrl) {
+			client.reply(number, outline, replyMsg, true);
+		} else {
+			client.reply(number, 'Link inválido', replyMsg, true);
+		}
 	}
 }
 

@@ -1,4 +1,5 @@
 const wa = require('@open-wa/wa-automate');
+const ON_DEATH = require('death');
 const helpers = require('../helpers');
 const whpHook = require('./whpHook');
 const whpCmd = require('./whpCmd');
@@ -24,6 +25,8 @@ const whpConfigureClient = async function(client) {
 	client.onAnyMessage((data) => whpHook.send('message', data));
 	client.onMessage((data) => whpCmd.handler(client, data));
 
+	// console.log(await client.getMessageById('false_559881199008-1591773499@g.us_3EB0E29D045D458FCC1E_559881199008@c.us'));
+
 	// client.onPlugged(whpHook.post(await client.getMe()));
 	// client.onMessage((data) => whpHook.send('message', data));
 	// client.onAnyMessage(webHook('any_message'));
@@ -36,6 +39,12 @@ const whpConfigureClient = async function(client) {
 
 	setWhp('isStarting', false);
 	console.log(`\n⚡ Listening on http://localhost:${process.env.PORT}!`);
+
+	ON_DEATH(async function(signal, err) {
+		console.log(`\n❌ Killing session!`, signal, err);
+		await client.kill();
+		process.exit(0);
+	});
 };
 
 module.exports = whpServerStart;
