@@ -28,7 +28,7 @@ const sessionStop = async function() {
 };
 
 const sendGetStatus = function(send) {
-	return send = (send.slice(0, 4) === 'true') ? true : false;
+	return send = (!send) ? false : true;
 };
 
 const getFileName = function(url) {

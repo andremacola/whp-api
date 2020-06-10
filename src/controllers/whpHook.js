@@ -60,13 +60,18 @@ class whpHook {
 			case 'ack':
 				hook = {
 					event,
+					dir: (data.id.fromMe) ? 'o' : 'i',
 					from: formatPhoneNumber(data.from),
 					to: formatPhoneNumber(data.to),
 					server: getMsgServerFromNumber(data.from),
 					muid: false,
-					id: data.data.id,
+					id: data.id.id,
 					ack: data.ack,
 				};
+				if (data.author) {
+					hook.from = formatPhoneNumber(data.author);
+					hook.group = data.from;
+				}
 				break;
 			default:
 				break;

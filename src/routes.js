@@ -6,8 +6,9 @@ const router = express.Router();
 const validateActiveToken = require('./middlewares/validateActiveToken');
 const verifyActiveSession = require('./middlewares/verifyActiveSession');
 const sendHandler = require('./middlewares/sendHandler');
+const statusHandler = require('./middlewares/statusHandler');
 
-/* session status/info */
+/* session debug */
 router.get(
 	'/debug/',
 	async (req, res) => {
@@ -20,9 +21,7 @@ router.get(
 	'/:token/status',
 	validateActiveToken,
 	verifyActiveSession,
-	async (req, res) => {
-		return res.json(await whpClient().getMe());
-	},
+	statusHandler,
 );
 
 /* session stop */

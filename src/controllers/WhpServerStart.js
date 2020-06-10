@@ -19,14 +19,11 @@ const whpServerStart = async function() {
 const whpConfigureClient = async function(client) {
 	setWhp('client', client);
 
-	client.onPlugged(whpHook.post(await client.getMe()));
-	client.onAck((data) => {
-		whpHook.send('ack', data);
-	});
-	client.onMessage((data) => {
-		whpHook.send('message', data);
-	});
+	client.onAck((data) => whpHook.send('ack', data));
+	client.onAnyMessage((data) => whpHook.send('message', data));
 
+	// client.onPlugged(whpHook.post(await client.getMe()));
+	// client.onMessage((data) => whpHook.send('message', data));
 	// client.onAnyMessage(webHook('any_message'));
 	// client.onAddedToGroup(webHook('added_to_group'));
 	// client.onBattery(webHook('battery'));

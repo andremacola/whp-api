@@ -7,14 +7,25 @@ class whpSend {
 		this.client = whpClient();
 	}
 
-	bad() {
-		return this.res.status(400).send('Bad Request');
+	bad(msg = 'Bad Request') {
+		return this.res.status(400).send(msg);
+	}
+
+	checkNumber(n) {
+		// const number = await this.client.checkNumberStatus(recipient);
+		// return (number.status == 200) ? number.id._serialized : false;
+		if (n.charAt(4) == 9 && n.slice(0, 2) == 55) {
+			return n.slice(0, 4) + n.slice(5);
+		}
+		return n;
 	}
 
 	async text() {
 		const { cmd, to, msg } = this.req.body;
-		if (cmd == 'chat' && to && msg) {
-			const send = sendGetStatus(await this.client.sendText(to, msg));
+		const number = this.checkNumber(to);
+		console.log(number);
+		if (cmd == 'chat' && number && msg) {
+			const send = sendGetStatus(await this.client.sendText(number, msg));
 			return this.res.status(200).json({
 				send,
 				cmd,
@@ -26,7 +37,9 @@ class whpSend {
 
 	async link() {
 		const { cmd, to, url, msg } = this.req.body;
-		if (cmd == 'link' && to && url) {
+		const number = this.checkNumber(to);
+		console.log(number);
+		if (cmd == 'link' && number && url) {
 			const caption = (msg) ? msg : '';
 
 			let send = await this.client.sendLinkWithAutoPreview(to, url, caption);
@@ -42,7 +55,9 @@ class whpSend {
 
 	async media() {
 		const { cmd, to, url, msg } = this.req.body;
-		if (cmd == 'media' && to && url) {
+		const number = this.checkNumber(to);
+		console.log(number);
+		if (cmd == 'media' && number && url) {
 			const media = await getFile(url);
 			const caption = (msg) ? msg : '';
 
