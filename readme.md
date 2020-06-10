@@ -60,4 +60,4 @@ Whatsapp REST API for [wa-automate-nodejs](https://github.com/open-wa/wa-automat
 
 ### WEBHOOKS ###
 
-No info yet
+Set webhook url on .env file. The api will send a post with every message or ack events
