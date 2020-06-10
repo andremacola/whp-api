@@ -17,6 +17,9 @@ class whpCmd {
 					this.outLine(client, number, canonicalUrl, msgId);
 				}
 				break;
+			case (body == '@ping'):
+				client.sendText(number, '@pong');
+				break;
 			default:
 				break;
 		}
