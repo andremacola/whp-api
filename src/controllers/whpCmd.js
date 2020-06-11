@@ -11,6 +11,9 @@ class whpCmd {
 		const number = data.from;
 		const msgId = data.id;
 		switch (true) {
+			case (body == '@help'):
+				this.help(client, number);
+				break;
 			case (body.startsWith('@pay ')):
 				this.outLine(client, number, body, msgId);
 				break;
@@ -45,6 +48,17 @@ class whpCmd {
 		}
 	}
 
+	static async help(client, number) {
+		const msg = `ℹ *Comandos Disponíveis* ℹ
+*@ping*: _@pong_
+*@ei*: _uma frase aleatória_
+*@usd*: _Cotação atual do Dólar_
+*@eur*: _Cotação atual do Euro_
+*@ac sigla-do-ativo*: _Cotação do ativo na bolsa_
+*@_yt_ endereço-do-video*: Baixar vídeo do Youtube/Twitter (em dev)`;
+		return await client.sendText(number, msg);
+	}
+
 	static async frases(client, number, replyMsg) {
 		const prons = [ 'Ei', 'Hnn', 'Rapá', 'Fala', 'Veish' ];
 		const frases = [ 'Már cumpôca eu vou aí', 'Tu tá parecendo um menino do buchão', 'É só tu arrudiar bem por alí', 'Essa piquena é pai D\'Égua', 'Esse bicho é todo desassuntado', 'Eu vou aí na boquinha da noite', 'Tu é todo migueloso', 'Cadê essa ôta?', 'Te dou-lhe um bogue', 'Te dou-lhe um murro', 'Te dou-lhe um cascudo', 'Paruano eu vou pro meu interior', 'Eu tô é tu', 'Esse bicho é todo galudo', 'Te sai de boca!', 'Ele é iscritinho o pai', 'Éguas vai cair um toró! São Pedro tá inspirado!', 'Lá vai ela com a calça no rendengue', 'Eu tô só a coíra', 'Merman, larga de ser esparrosa', 'Eu não sou teus pareceiros', 'Eu vou me banhar rapidão', 'Aquela piquena é amostrada', 'Alí só tem maroca', 'Merman, eu fiquei arriliada', 'Eu cheguei lá na caruda', 'Tu só quer ser', 'Bora binhalí merendar', 'Larga de ser canhenga', 'Daqui pra rua grande é uma pernada', 'Aquilo ali é qualira', 'Piqueno eu vou te dále', 'Éguas té doido', 'Bota o teu', 'Não te faz de doida que o pau de acha', 'Heinhein' ];
@@ -71,7 +85,7 @@ class whpCmd {
 				const icTitle = (pctChange[0] === '-') ? '📉' : '📈';
 				const icVar = (pctChange[0] === '-') ? '🔻' : '🔼';
 				const msg = `${icTitle} *${name}* ${icTitle}\n*Compra:* R$${bid}\n*Venda:* R$${ask}\n*Variação:* ${icVar} ${pctChange}%`;
-				client.sendText(number, msg);
+				return client.sendText(number, msg);
 			});
 	}
 
@@ -96,7 +110,7 @@ class whpCmd {
 				const icTitle = (regularMarketChange < 0) ? '📉' : '📈';
 				const icVar = (regularMarketChange < 0) ? '🔻' : '🔼';
 				const msg = `${icTitle} *${longName}* ${icTitle}\n*ID:* ${symbol}\n*Preço:* ${icVar} R$${regularMarketPrice}\n*Variação:* ${icVar} ${regularMarketChange}%`;
-				client.sendText(number, msg);
+				return client.sendText(number, msg);
 			});
 	}
 
@@ -104,7 +118,7 @@ class whpCmd {
 		const sourceUrl = body.replace('@pay ', '');
 		const outline = `https://outline.com/${sourceUrl}`;
 		if (sourceUrl) {
-			client.reply(number, outline, replyMsg, true);
+			return client.reply(number, outline, replyMsg, true);
 		}
 	}
 }
