@@ -56,7 +56,8 @@ class whpCmd {
 *@usd*: _Cotação atual do Dólar_
 *@eur*: _Cotação atual do Euro_
 *@ac sigla-do-ativo*: _Cotação do ativo na bolsa_
-*@_yt_ endereço-do-video*: Baixar vídeo do Youtube/Twitter (em dev)`;
+*@_yt_ endereço-do-video*: Baixar vídeo do Youtube/Twitter (em dev)
+*!!1-126*: _Retorna um taunt (ex: !!11)_`;
 		return await client.sendText(number, msg);
 	}
 
