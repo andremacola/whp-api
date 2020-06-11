@@ -52,6 +52,7 @@ class whpCmd {
 		const msg = `ℹ *Comandos Disponíveis* ℹ
 *@ping*: _@pong_
 *@ei*: _uma frase aleatória_
+*@pay endereço-da-noticia*: _Burlar paywall_
 *@usd*: _Cotação atual do Dólar_
 *@eur*: _Cotação atual do Euro_
 *@ac sigla-do-ativo*: _Cotação do ativo na bolsa_
