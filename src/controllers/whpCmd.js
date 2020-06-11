@@ -1,4 +1,5 @@
 const axios = require('axios').default;
+const { getFile } = require('./../helpers');
 
 class whpCmd {
 	bad() {
@@ -33,9 +34,19 @@ class whpCmd {
 			case (body == '@eur'):
 				this.brl(client, number, 'EUR');
 				break;
+			case (body.startsWith('!!')):
+				this.taunts(client, number, body);
+				break;
 			default:
 				break;
 		}
+	}
+
+	static async taunts(client, number, body) {
+		const taunt = body.replace('!!', '');
+		const url = `${process.env.CDN_URL}/taunts/${taunt}.mp3`;
+		const media = await getFile(url);
+		return await client.sendFile(number, media.base64, media.name);
 	}
 
 	static brl(client, number, coin = 'USD') {
