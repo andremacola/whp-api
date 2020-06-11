@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { getFile, getVideoFile } = require('./../helpers');
+const { getFile, getShortLink, getVideoFile } = require('./../helpers');
 
 class whpCmd {
 	bad() {
@@ -132,11 +132,11 @@ class whpCmd {
 			});
 	}
 
-	static outLine(client, number, body, replyMsg) {
+	static async outLine(client, number, body, replyMsg) {
 		const sourceUrl = body.replace('@pay ', '');
-		const outline = `https://outline.com/${sourceUrl}`;
-		if (sourceUrl) {
-			return client.reply(number, outline, replyMsg, true);
+		const link = await getShortLink(`https://outline.com/${sourceUrl}`);
+		if (link) {
+			return client.reply(number, `🗞️ *Leia*: ${link}`, replyMsg, true);
 		}
 	}
 }

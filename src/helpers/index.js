@@ -70,6 +70,25 @@ const formatPhoneNumber = function(number) {
 	return number.slice(0, -5);
 };
 
+const getShortLink = async function(url) {
+	return axios
+		.post('https://api-ssl.bitly.com/v4/shorten',
+			{
+				group_guid: process.env.BITLY_GUID,
+				domain: 'bit.ly',
+				long_url: url,
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*',
+					Authorization: `Bearer ${process.env.BITLY_TOKEN}`,
+				},
+			})
+		.then((r) => (r.data.link) ? r.data.link : false)
+		.catch((err) => console.log(err));
+};
+
 async function getVideoInfo(url) {
 	return new Promise((res, rej) => {
 		youtubedl.getInfo(url, [], function(err, info) {
@@ -105,6 +124,7 @@ module.exports = {
 	getMessageID,
 	getMsgServerFromNumber,
 	formatPhoneNumber,
+	getShortLink,
 	getVideoInfo,
 	getVideoFile,
 };
