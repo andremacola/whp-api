@@ -17,6 +17,10 @@ desktop.ini
 node_modules/
 test/
 
+# cdn
+######################
+cdn/
+
 # ftp/sftp
 ######################
 .ftpconfig
