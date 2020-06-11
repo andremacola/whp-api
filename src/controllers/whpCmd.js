@@ -25,6 +25,9 @@ class whpCmd {
 			case (body == '@ping'):
 				client.sendText(number, '@pong');
 				break;
+			case (body == '@ei' || body.startsWith('@ei ')):
+				this.frases(client, number, msgId);
+				break;
 			case (body.startsWith('@ac ')):
 				this.stock(client, number, body);
 				break;
@@ -40,6 +43,17 @@ class whpCmd {
 			default:
 				break;
 		}
+	}
+
+	static async frases(client, number, replyMsg) {
+		const prons = [ 'Ei', 'Hnn', 'Rapá', 'Fala', 'Veish' ];
+		const frases = [ 'Már cumpôca eu vou aí', 'Tu tá parecendo um menino do buchão', 'É só tu arrudiar bem por alí', 'Essa piquena é pai D\'Égua', 'Esse bicho é todo desassuntado', 'Eu vou aí na boquinha da noite', 'Tu é todo migueloso', 'Cadê essa ôta?', 'Te dou-lhe um bogue', 'Te dou-lhe um murro', 'Te dou-lhe um cascudo', 'Paruano eu vou pro meu interior', 'Eu tô é tu', 'Esse bicho é todo galudo', 'Te sai de boca!', 'Ele é iscritinho o pai', 'Éguas vai cair um toró! São Pedro tá inspirado!', 'Lá vai ela com a calça no rendengue', 'Eu tô só a coíra', 'Merman, larga de ser esparrosa', 'Eu não sou teus pareceiros', 'Eu vou me banhar rapidão', 'Aquela piquena é amostrada', 'Alí só tem maroca', 'Merman, eu fiquei arriliada', 'Eu cheguei lá na caruda', 'Tu só quer ser', 'Bora binhalí merendar', 'Larga de ser canhenga', 'Daqui pra rua grande é uma pernada', 'Aquilo ali é qualira', 'Piqueno eu vou te dále', 'Éguas té doido', 'Bota o teu', 'Não te faz de doida que o pau de acha', 'Heinhein' ];
+
+		const pron = prons[Math.floor(Math.random() * prons.length)];
+		const frase = frases[Math.floor(Math.random() * frases.length)];
+		const msg = `${pron}, ${frase}`;
+
+		return await client.reply(number, msg, replyMsg, true);
 	}
 
 	static async taunts(client, number, body) {
