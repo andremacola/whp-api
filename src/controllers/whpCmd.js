@@ -1,5 +1,5 @@
 const axios = require('axios').default;
-const { getFile } = require('./../helpers');
+const { getFile, getVideoFile } = require('./../helpers');
 
 class whpCmd {
 	bad() {
@@ -13,6 +13,9 @@ class whpCmd {
 		switch (true) {
 			case (body == '@help'):
 				this.help(client, number);
+				break;
+			case (body.startsWith('@vid ')):
+				this.video(client, number, body, msgId);
 				break;
 			case (body.startsWith('@pay ')):
 				this.outLine(client, number, body, msgId);
@@ -56,7 +59,7 @@ class whpCmd {
 *@usd*: _Cotação atual do Dólar_
 *@eur*: _Cotação atual do Euro_
 *@ac sigla-do-ativo*: _Cotação do ativo na bolsa_
-*@_yt_ endereço-do-video*: Baixar vídeo do Youtube/Twitter (em dev)
+*@_vid_ endereço-do-video*: Baixar vídeo do Youtube/Twitter/Vimeo (em dev)
 *!!1-126*: _Retorna um taunt (ex: !!11)_`;
 		return await client.sendText(number, msg);
 	}
@@ -70,6 +73,19 @@ class whpCmd {
 		const msg = `${pron}, ${frase}`;
 
 		return await client.reply(number, msg, replyMsg, true);
+	}
+
+	static async video(client, number, body, replyMsg) {
+		const url = body.replace('@vid ', '');
+		await getVideoFile(url)
+			.then((res) => {
+				const file = res[0].split(' ')[1].replace(':', '');
+				const videoUrl = `${process.env.CDN_URL}/videos/${file}.mp4`;
+				return client.reply(number, '😁 Yess! *Baixe o vídeo em:* ' + videoUrl, replyMsg, true);
+			})
+			.catch(() => {
+				return client.reply(number, '😕 Haaaa! Não consegui baixar o vídeo. O Endereço está correto?', replyMsg, true);
+			});
 	}
 
 	static async taunts(client, number, body) {

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-server": "nodemon src/server.js --ignore *.data.json",
-	 "start-old": "nodemon test/server_old.js --ignore *.data.json"
+    "start-old": "nodemon test/server_old.js --ignore *.data.json"
   },
   "author": "andremacola",
   "license": "ISC",
@@ -16,7 +16,8 @@
     "death": "^1.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "p-queue": "^6.4.0"
+    "p-queue": "^6.4.0",
+    "youtube-dl": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^7.1.0",

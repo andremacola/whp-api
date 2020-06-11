@@ -1,6 +1,7 @@
 require('dotenv').config();
 const whp = require('../config/whp');
 const axios = require('axios').default;
+const youtubedl = require('youtube-dl');
 
 const setWhp = function(option, value) {
 	if (!option) {
@@ -69,6 +70,29 @@ const formatPhoneNumber = function(number) {
 	return number.slice(0, -5);
 };
 
+async function getVideoInfo(url) {
+	return new Promise((res, rej) => {
+		youtubedl.getInfo(url, [], function(err, info) {
+			if (err) {
+				rej(err);
+			}
+			res(info);
+		});
+	});
+}
+
+async function getVideoFile(url, quality = 'best[mp4, height<=480]') {
+	return new Promise((res, rej) => {
+		youtubedl.exec(url, [ '-f', quality, '-o', '/whp/src/cdn/videos/%(id)s.%(ext)s' ], {}, function(err, output) {
+			if (err) {
+				rej(err);
+			} else {
+				res(output);
+			}
+		});
+	});
+}
+
 module.exports = {
 	setWhp,
 	getWhp,
@@ -81,5 +105,7 @@ module.exports = {
 	getMessageID,
 	getMsgServerFromNumber,
 	formatPhoneNumber,
+	getVideoInfo,
+	getVideoFile,
 };
 
