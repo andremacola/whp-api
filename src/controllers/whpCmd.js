@@ -119,7 +119,7 @@ class whpCmd {
 					},
 					headers: {
 						'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
-						'x-rapidapi-key': '3148a30e3cmshcc97bfcd0f10725p10df16jsn3cb9d1db3f7d',
+						'x-rapidapi-key': process.env.RAPIDAPI_KEY,
 					},
 				},
 			)
