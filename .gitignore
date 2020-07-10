@@ -16,6 +16,7 @@ desktop.ini
 *.data.json
 node_modules/
 test/
+data/
 
 # cdn
 ######################
