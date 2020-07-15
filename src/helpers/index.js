@@ -102,7 +102,7 @@ async function getVideoInfo(url) {
 
 async function getVideoFile(url, quality = 'best[mp4, height<=480]') {
 	return new Promise((res, rej) => {
-		youtubedl.exec(url, [ '-f', quality, '-o', '/whp/src/cdn/videos/%(id)s.%(ext)s' ], {}, function(err, output) {
+		youtubedl.exec(url, [ '-f', quality, '-o', `${__dirname}/../../cdn/videos/%(id)s.%(ext)s` ], {}, function(err, output) {
 			if (err) {
 				rej(err);
 			} else {
