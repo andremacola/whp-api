@@ -1,14 +1,13 @@
-const express = require('express');
-const { whpClient, sessionStop, getWhp, setWhp } = require('./helpers');
-const whpServerStart = require('./controllers/whpServerStart');
+import express from 'express';
+import { whpClient, sessionStop, getWhp, setWhp } from './helpers';
+import whpServerStart from './controllers/whpServerStart';
+import validateActiveToken from './middlewares/validateActiveToken';
+import verifyActiveSession from './middlewares/verifyActiveSession';
+import sendHandler from './middlewares/sendHandler';
+import statusHandler from './middlewares/statusHandler';
+import nodemon from 'nodemon';
+
 const router = express.Router();
-
-const validateActiveToken = require('./middlewares/validateActiveToken');
-const verifyActiveSession = require('./middlewares/verifyActiveSession');
-const sendHandler = require('./middlewares/sendHandler');
-const statusHandler = require('./middlewares/statusHandler');
-
-const nodemon = require('nodemon');
 
 /* session debug */
 router.get(
@@ -65,4 +64,4 @@ router.post(
 	sendHandler,
 );
 
-module.exports = router;
+export default router;

@@ -6,7 +6,6 @@
 Icon?
 ._*
 desktop.ini
-
 # development
 ######################
 .idea
@@ -17,13 +16,17 @@ desktop.ini
 node_modules/
 test/
 data/
-
 # cdn
 ######################
 cdn/
-
 # ftp/sftp
 ######################
 .ftpconfig
 sftp.json
 sftp-config.json
+
+# managed by open-wa
+**.data.json
+**.node-persist**
+**_IGNORE_**
+# end managed by open-wa

@@ -1,4 +1,4 @@
-const { whpClient, sendGetStatus, getFile } = require('./../helpers');
+import { whpClient, sendGetStatus, getFile } from './../helpers';
 
 class whpSend {
 	constructor(req, res) {
@@ -76,4 +76,4 @@ class whpSend {
 	}
 }
 
-module.exports = whpSend;
+export default whpSend;

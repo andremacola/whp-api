@@ -1,4 +1,4 @@
-const whpSend = require('../controllers/whpSend');
+import whpSend from '../controllers/whpSend';
 
 function sendHandler(req, res) {
 	const { cmd } = req.body;
@@ -16,4 +16,4 @@ function sendHandler(req, res) {
 	}
 }
 
-module.exports = sendHandler;
+export default sendHandler;

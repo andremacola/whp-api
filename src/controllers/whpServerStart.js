@@ -1,10 +1,8 @@
-const wa = require('@open-wa/wa-automate');
-const ON_DEATH = require('death');
-const helpers = require('../helpers');
-const whpHook = require('./whpHook');
-const whpCmd = require('./whpCmd');
-
-const { setWhp } = helpers;
+import wa from '@open-wa/wa-automate';
+import ON_DEATH from 'death';
+import { setWhp } from '../helpers';
+import whpHook from './whpHook';
+import whpCmd from './whpCmd';
 
 const whpServerStart = async function() {
 	setWhp('isStarting', true);
@@ -47,4 +45,4 @@ const whpConfigureClient = async function(client) {
 	});
 };
 
-module.exports = whpServerStart;
+export default whpServerStart;

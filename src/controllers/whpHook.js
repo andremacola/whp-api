@@ -1,11 +1,14 @@
-const axios = require('axios').default;
-const { default: PQueue } = require('p-queue');
-const queue = new PQueue({ concurrency: 5 });
-const { getMsgServer, getMessageID, getMsgServerFromNumber, formatPhoneNumber } = require('../helpers');
+import axios from 'axios';
+import queue from 'p-queue';
+import { getMsgServer, getMessageID, getMsgServerFromNumber, formatPhoneNumber } from '../helpers';
 
 class whpHook {
 	static async post(data) {
-		return await axios.post(process.env.WEBHOOK, data);
+		try {
+			await axios.post(process.env.WEBHOOK, data);
+		} catch (e) {
+			console.log('Error sending a hook');
+		}
 	}
 
 	static async send(event, data) {
@@ -81,4 +84,4 @@ class whpHook {
 	}
 }
 
-module.exports = whpHook;
+export default whpHook;

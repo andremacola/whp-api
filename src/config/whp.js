@@ -6,4 +6,4 @@ const Whp = {
 	isStarting: false,
 };
 
-module.exports = Whp;
+export default Whp;

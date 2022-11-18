@@ -1,26 +1,30 @@
 {
   "name": "whp-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "whatsapp automation rest api",
   "main": "index.js",
   "scripts": {
-    "start-server": "nodemon src/server.js --ignore *.data.json",
-    "start-old": "nodemon test/server_old.js --ignore *.data.json"
+    "start-server": "nodemon --experimental-specifier-resolution=node src/server.js"
+  },
+  "nodemonConfig": {
+    "ignore": ["**/__tests__/**", "*.data.json"],
+    "delay": 2500
   },
   "author": "andremacola",
   "license": "ISC",
   "dependencies": {
-    "@open-wa/wa-automate": "^1.9.98",
+    "@open-wa/wa-automate": "^4.50.2",
     "@wordpress/eslint-plugin": "^6.1.0",
     "axios": "^0.19.2",
     "death": "^1.1.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "p-queue": "^6.4.0",
-    "youtube-dl": "^3.0.2"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "p-queue": "^7.3.0",
+    "youtube-dl-exec": "^2.1.10"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.20"
   }
 }

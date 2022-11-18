@@ -9,4 +9,4 @@ function validateActiveToken(req, res, next) {
 	return next();
 }
 
-module.exports = validateActiveToken;
+export default validateActiveToken;

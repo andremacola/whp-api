@@ -1,4 +1,4 @@
-const { whpClient } = require('../helpers');
+import { whpClient } from '../helpers';
 
 async function statusHandler(req, res) {
 	const client = await whpClient().getMe();
@@ -16,4 +16,4 @@ async function statusHandler(req, res) {
 	return res.json(status);
 }
 
-module.exports = statusHandler;
+export default statusHandler;

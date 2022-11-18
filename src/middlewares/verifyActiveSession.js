@@ -1,4 +1,4 @@
-const { whpClient } = require('./../helpers');
+import { whpClient } from '../helpers';
 
 /* verify active instance session */
 async function verifyActiveSession(req, res, next) {
@@ -13,4 +13,4 @@ async function verifyActiveSession(req, res, next) {
 	return next();
 }
 
-module.exports = verifyActiveSession;
+export default verifyActiveSession;

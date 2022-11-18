@@ -1,8 +1,14 @@
-require('dotenv').config();
-const express = require('express');
-const routes = require('./routes');
-const whpServerStart = require('./controllers/whpServerStart');
+import * as dotenv from 'dotenv';
+import express from 'express';
+import routes from './routes';
+import whpServerStart from './controllers/whpServerStart';
+
+dotenv.config();
 const app = express();
+
+import * as url from 'url';
+// const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 app.use(express.json());
 app.use(routes);

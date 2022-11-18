@@ -1,24 +1,28 @@
-require('dotenv').config();
-const whp = require('../config/whp');
-const axios = require('axios').default;
-const youtubedl = require('youtube-dl');
+import * as dotenv from 'dotenv';
+import * as urll from 'url';
+import whp from '../config/whp';
+import axios from 'axios';
+import youtubedl from 'youtube-dl-exec';
 
-const setWhp = function(option, value) {
+const __dirname = urll.fileURLToPath(new URL('.', import.meta.url));
+dotenv.config();
+
+export const setWhp = function(option, value) {
 	if (!option) {
 		return false;
 	}
 	return whp[option] = (value) ? value : false;
 };
 
-const getWhp = function(option) {
+export const getWhp = function(option) {
 	return (option) ? whp[option] : whp;
 };
 
-const whpClient = function() {
+export const whpClient = function() {
 	return getWhp('client');
 };
 
-const sessionStop = async function() {
+export const sessionStop = async function() {
 	const client = await whpClient();
 	console.log('sessionStop', 'init');
 	if (client) {
@@ -28,15 +32,15 @@ const sessionStop = async function() {
 	}
 };
 
-const sendGetStatus = function(send) {
+export const sendGetStatus = function(send) {
 	return send = (!send) ? false : true;
 };
 
-const getFileName = function(url) {
+export const getFileName = function(url) {
 	return url.substring(url.lastIndexOf('/') + 1);
 };
 
-const getFile = async function(url) {
+export const getFile = async function(url) {
 	return axios
 		.get(url, {
 			responseType: 'arraybuffer',
@@ -53,24 +57,24 @@ const getFile = async function(url) {
 		});
 };
 
-const getMsgServer = function(isGroupMsg) {
+export const getMsgServer = function(isGroupMsg) {
 	return (isGroupMsg) ? '@g.us' : '@c.us';
 };
 
-const getMsgServerFromNumber = function(number) {
+export const getMsgServerFromNumber = function(number) {
 	return number.slice(-4);
 };
 
-const getMessageID = function(id) {
+export const getMessageID = function(id) {
 	// return id = id.split('us_')[1].split('_')[0];
 	return id.slice(id.indexOf('us_') + 3).split('_')[0];
 };
 
-const formatPhoneNumber = function(number) {
+export const formatPhoneNumber = function(number) {
 	return number.slice(0, -5);
 };
 
-const getShortLink = async function(url) {
+export const getShortLink = async function(url) {
 	return axios
 		.post('https://api-ssl.bitly.com/v4/shorten',
 			{
@@ -89,43 +93,39 @@ const getShortLink = async function(url) {
 		.catch((err) => console.log(err));
 };
 
-async function getVideoInfo(url) {
+export async function getVideoFile(url, quality = '(mp4)[height<480]') {
 	return new Promise((res, rej) => {
-		youtubedl.getInfo(url, [], function(err, info) {
-			if (err) {
-				rej(err);
-			}
-			res(info);
-		});
+		youtubedl(url, {
+			format: quality,
+			output: `${__dirname}../../cdn/videos/%(id)s.%(ext)s`,
+			dumpJson: true,
+			noCheckCertificates: true,
+			noWarnings: true,
+			preferFreeFormats: true,
+			addHeader: [
+				'referer:youtube.com',
+				'user-agent:googlebot',
+			],
+		})
+			.then((output) => res(output))
+			.catch((err) => rej(err));
 	});
 }
 
-async function getVideoFile(url, quality = 'best[mp4, height<=480]') {
-	return new Promise((res, rej) => {
-		youtubedl.exec(url, [ '-f', quality, '-o', `${__dirname}/../../cdn/videos/%(id)s.%(ext)s` ], {}, function(err, output) {
-			if (err) {
-				rej(err);
-			} else {
-				res(output);
-			}
-		});
-	});
-}
-
-module.exports = {
-	setWhp,
-	getWhp,
-	whpClient,
-	sessionStop,
-	sendGetStatus,
-	getFileName,
-	getFile,
-	getMsgServer,
-	getMessageID,
-	getMsgServerFromNumber,
-	formatPhoneNumber,
-	getShortLink,
-	getVideoInfo,
-	getVideoFile,
-};
+// export default {
+// 	setWhp,
+// 	getWhp,
+// 	whpClient,
+// 	sessionStop,
+// 	sendGetStatus,
+// 	getFileName,
+// 	getFile,
+// 	getMsgServer,
+// 	getMessageID,
+// 	getMsgServerFromNumber,
+// 	formatPhoneNumber,
+// 	getShortLink,
+// 	getVideoInfo,
+// 	getVideoFile,
+// };
 

@@ -1,5 +1,5 @@
-const axios = require('axios').default;
-const { getFile, getShortLink, getVideoFile } = require('./../helpers');
+import axios from 'axios';
+import { getFile, getShortLink, getVideoFile } from './../helpers';
 
 class whpCmd {
 	bad() {
@@ -79,11 +79,12 @@ class whpCmd {
 		const url = body.replace('@vid ', '');
 		await getVideoFile(url)
 			.then((res) => {
-				const file = res[0].split(' ')[1].replace(':', '');
+				const file = res.display_id;
 				const videoUrl = `${process.env.CDN_URL}/videos/${file}.mp4`;
 				return client.reply(number, '😁 Yess! *Baixe o vídeo em:* ' + videoUrl, replyMsg, true);
 			})
-			.catch(() => {
+			.catch((err) => {
+				console.log(err);
 				return client.reply(number, '😕 Haaaa! Não consegui baixar o vídeo. O Endereço está correto?', replyMsg, true);
 			});
 	}
@@ -110,15 +111,14 @@ class whpCmd {
 	static stock(client, number, stock) {
 		const ac = stock.slice(4);
 		axios
-			.get(`https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes`,
+			.get(`https://yh-finance.p.rapidapi.com/market/v2/get-quotes`,
 				{
 					params: {
 						symbols: `${ac}.SA`,
 						region: 'BR',
-						lang: 'pt-BR',
 					},
 					headers: {
-						'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+						'x-rapidapi-host': 'yh-finance.p.rapidapi.com',
 						'x-rapidapi-key': process.env.RAPIDAPI_KEY,
 					},
 				},
@@ -134,11 +134,12 @@ class whpCmd {
 
 	static async outLine(client, number, body, replyMsg) {
 		const sourceUrl = body.replace('@pay ', '');
-		const link = await getShortLink(`https://outline.com/${sourceUrl}`);
+
+		const link = await getShortLink(`https://12ft.io/proxy?q=${sourceUrl}`);
 		if (link) {
 			return client.reply(number, `🗞️ *Leia*: ${link}`, replyMsg, true);
 		}
 	}
 }
 
-module.exports = whpCmd;
+export default whpCmd;
