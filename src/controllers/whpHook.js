@@ -7,12 +7,16 @@ class whpHook {
 		try {
 			await axios.post(process.env.WEBHOOK, data);
 		} catch (e) {
-			console.log('Error sending a hook');
+			console.log('Error posting a hook');
 		}
 	}
 
 	static async send(event, data) {
-		return await this.post(this.dataHandler(event, data));
+		try {
+			await this.post(this.dataHandler(event, data));
+		} catch (e) {
+			console.log('Error sending a hook');
+		}
 	}
 
 	static event(event) {
