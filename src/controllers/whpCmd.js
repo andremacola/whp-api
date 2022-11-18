@@ -1,5 +1,9 @@
+import fs from 'fs';
+import * as urll from 'url';
 import axios from 'axios';
-import { getFile, getShortLink, getVideoFile } from './../helpers';
+import { getShortLink, getVideoFile } from './../helpers';
+
+const __dirname = urll.fileURLToPath(new URL('.', import.meta.url));
 
 class whpCmd {
 	bad() {
@@ -44,7 +48,7 @@ class whpCmd {
 				this.brl(client, number, 'EUR');
 				break;
 			case (body.startsWith('!!')):
-				this.taunts(client, number, body);
+				this.taunts(client, number, body, msgId);
 				break;
 			default:
 				break;
@@ -89,11 +93,31 @@ class whpCmd {
 			});
 	}
 
-	static async taunts(client, number, body) {
-		const taunt = body.replace('!!', '');
-		const url = `${process.env.CDN_URL}/taunts/${taunt}.mp3`;
-		const media = await getFile(url);
-		return await client.sendFile(number, media.base64, media.name);
+	static async taunts(client, number, body, replyMsg) {
+		const folder = __dirname + '../../cdn/taunts/';
+		const files = fs.readdirSync(folder);
+		const tauntRef = body.replace('!!', '');
+
+		let tauntFileName;
+		if (tauntRef === 'random') {
+			tauntFileName = files[Math.floor(Math.random() * files.length)];
+		} else {
+			tauntFileName = files.find((file) => file.split(' ')[0] === tauntRef);
+			if (!tauntFileName) {
+				tauntFileName = files.filter((file) => file.toLocaleLowerCase().includes(tauntRef));
+				tauntFileName = tauntFileName[Math.floor(Math.random() * tauntFileName.length)];
+			}
+		}
+
+		const tauntFilePath = folder + '/' + tauntFileName;
+		const tauntExist = fs.existsSync(tauntFilePath);
+
+		if (tauntExist) {
+			await client.sendFile(number, tauntFilePath, tauntFileName);
+			await client.sendText(number, tauntFileName.replace('.mp3', ''));
+		} else {
+			await client.reply(number, '😕 Haaaa! Não consegui achar esse taunt. Tenta outro número!', replyMsg, true);
+		}
 	}
 
 	static brl(client, number, coin = 'USD') {
