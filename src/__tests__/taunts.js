@@ -9,14 +9,14 @@ const __dirname = urll.fileURLToPath(new URL('.', import.meta.url));
 async function taunts(body = '!!random') {
 	const folder = __dirname + '../../cdn/taunts/';
 	const files = fs.readdirSync(folder);
-	const tauntRef = body.replace('!!', '');
+	const tauntRef = body.replaceAll('!!', '').replace('title', '').trim();
 
 	let tauntFileName;
 	if (tauntRef === 'random') {
 		tauntFileName = files[Math.floor(Math.random() * files.length)];
 	} else {
 		tauntFileName = files.find((file) => file.split(' ')[0] === tauntRef);
-		if (!tauntFileName) {
+		if (!tauntFileName && !parseInt(tauntRef)) {
 			tauntFileName = files.filter((file) => file.toLocaleLowerCase().includes(tauntRef));
 			tauntFileName = tauntFileName[Math.floor(Math.random() * tauntFileName.length)];
 		}
