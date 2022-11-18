@@ -8,8 +8,8 @@
     "start-server": "nodemon --experimental-specifier-resolution=node src/server.js"
   },
   "nodemonConfig": {
-    "ignore": ["**/__tests__/**", "*.data.json"],
-    "delay": 2500
+    "ignore": ["**/__tests__/**", "*.data.json", "_IGNORE_*"],
+    "delay": 100
   },
   "author": "andremacola",
   "license": "ISC",
