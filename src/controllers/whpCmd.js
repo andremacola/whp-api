@@ -83,7 +83,7 @@ class whpCmd {
 		const url = body.replace('@vid ', '');
 		await getVideoFile(url)
 			.then((res) => {
-				const file = res.display_id;
+				const file = res.split(' ')[1].replace(':', '');
 				const videoUrl = `${process.env.CDN_URL}/videos/${file}.mp4`;
 				return client.reply(number, '😁 Yess! *Baixe o vídeo em:* ' + videoUrl, replyMsg, true);
 			})

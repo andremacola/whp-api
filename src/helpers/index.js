@@ -98,10 +98,9 @@ export async function getVideoFile(url, quality = '(mp4)[height<480]') {
 		youtubedl(url, {
 			format: quality,
 			output: `${__dirname}../../cdn/videos/%(id)s.%(ext)s`,
-			dumpJson: true,
+			// dumpSingleJson: true,
 			noCheckCertificates: true,
 			noWarnings: true,
-			preferFreeFormats: true,
 			addHeader: [
 				'referer:youtube.com',
 				'user-agent:googlebot',
